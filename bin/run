@@ -1,0 +1,11 @@
+#!/bin/bash -e
+
+REPO=home_dns
+
+if [ -n "$DAEMON" ]; then
+  DAEMONIZE_OR_NOT_FLAG="-d"
+else
+  DAEMONIZE_OR_NOT_FLAG="-it"
+fi
+
+cd `dirname $0`/.. && docker run --rm $DAEMONIZE_OR_NOT_FLAG -p 53:53 -p 53:53/udp $REPO "$@"

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+REPO=home_dns
+
+docker build -t $REPO `dirname $0`/..
