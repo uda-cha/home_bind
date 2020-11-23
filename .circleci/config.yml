@@ -21,7 +21,7 @@ commands:
           name: docker build
           command: |
             docker build . \
-              -t asia.gcr.io/${GOOGLE_PROJECT_ID}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
+              -t ${GOOGLE_GCR_URL}/${GOOGLE_PROJECT_ID}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
 
 jobs:
   test-and-push:
@@ -35,13 +35,13 @@ jobs:
           name: test
           command: |
             docker run --rm -it \
-              asia.gcr.io/${GOOGLE_PROJECT_ID}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} \
+              ${GOOGLE_GCR_URL}/${GOOGLE_PROJECT_ID}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1} \
               dnsmasq --test
       - gloud_config
       - run:
           name: docker push
           command: |
-            docker push asia.gcr.io/${GOOGLE_PROJECT_ID}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
+            docker push ${GOOGLE_GCR_URL}/${GOOGLE_PROJECT_ID}/${CIRCLE_PROJECT_REPONAME}:${CIRCLE_SHA1}
 
 workflows:
   deploy:
